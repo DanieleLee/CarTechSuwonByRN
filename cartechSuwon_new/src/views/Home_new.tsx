@@ -19,7 +19,7 @@ import {updateNotification} from 'src/store/notification';
 
 import CardRows from '@ui/CardRows';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import {Badge} from '@rneui/base';
+import {Badge, Divider} from '@rneui/base';
 import {Header as HeaderHome} from '@rneui/themed';
 // import {useFetchLatestAudios} from 'src/hooks/query';
 
@@ -100,7 +100,7 @@ const Home_new: FC<Props> = props => {
     }
   };
 
-  const dummy = [
+  const card_balance = [
     {
       text: '가상계좌 잔액',
       style: {
@@ -133,8 +133,12 @@ const Home_new: FC<Props> = props => {
       style: {},
       components: (
         <Badge
-          value="국민은행: 279801 04 243576"
-          badgeStyle={{backgroundColor: '#D3D4DD', borderRadius: 5}}
+          value="국민은행: 279801 04 243576          예금주:경기도 전문정비 수원지회"
+          badgeStyle={{
+            backgroundColor: '#D3D4DD',
+            borderRadius: 5,
+            height: '75%',
+          }}
         />
       ),
     },
@@ -164,20 +168,31 @@ const Home_new: FC<Props> = props => {
         onAudioLongPress={handleOnLongPress}
       /> */}
 
+        <View style={styles.verticalDivider}>
+          <Text>정보1</Text>
+          <Divider orientation="vertical" inset="true" insetType="middle" />
+          <Text>정보1-1</Text>
+        </View>
+        <View style={styles.verticalDivider}>
+          <Text>정보2</Text>
+          <Divider orientation="vertical" inset="true" insetType="middle" />
+          <Text>정보2-1</Text>
+        </View>
+
         <View style={styles.cardContainer}>
           <CardContainer
             rows={
               <CardRows
-                data={dummy}
+                data={card_balance}
                 rowStyle={{
                   width: 200,
-                  height: 35 * dummy.length,
+                  height: 35 * card_balance.length,
                   marginVertical: 20,
                   marginHorizontal: 20,
                 }}
               />
             }
-            size={dummy.length}
+            size={card_balance.length}
           />
         </View>
         {/* <RecommendedAudios
@@ -251,8 +266,9 @@ const styles = StyleSheet.create({
   cardContainer: {
     height: '100%',
     flexDirection: 'row',
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 40,
   },
   optionContainer: {
     flexDirection: 'row',
@@ -269,6 +285,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     width: 200,
     paddingVertical: 2,
+  },
+  verticalDivider: {
+    marginBottom: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    paddingHorizontal: 40,
   },
 });
 

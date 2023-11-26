@@ -14,4 +14,5 @@ export type AuthStackParamList = {
 export type ProfileNavigatorStackParamList = {
   Profile: undefined;
   ProfileSettings: undefined;
+  PasswordChange: undefined;
 };

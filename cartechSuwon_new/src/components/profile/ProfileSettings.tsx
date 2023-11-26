@@ -18,6 +18,9 @@ import {
   updateProfile,
 } from 'src/store/auth';
 import deepEqual from 'deep-equal';
+import {Button} from '@rneui/base';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {ProfileNavigatorStackParamList} from 'src/@types/navigation';
 
 interface Props {}
 interface ProfileInfo {
@@ -30,6 +33,9 @@ const ProfileSettings: FC<Props> = props => {
   const [busy, setBusy] = useState(false);
   const dispatch = useDispatch();
   const {profile} = useSelector(getAuthState);
+
+  const {navigate} =
+    useNavigation<NavigationProp<ProfileNavigatorStackParamList>>();
 
   const isSame = deepEqual(userInfo, {
     name: profile?.name,
@@ -101,14 +107,39 @@ const ProfileSettings: FC<Props> = props => {
             <Text style={styles.linkText}>Update Profile Image</Text>
           </Pressable>
         </View>
-        <TextInput
-          onChangeText={text => setUserInfo({...userInfo, name: text})}
-          style={styles.nameInput}
-          value={userInfo.name}
-        />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <Text style={{marginTop: 5}}>이름</Text>
+          <TextInput
+            onChangeText={text => setUserInfo({...userInfo, name: text})}
+            style={styles.nameInput}
+            value={userInfo.name}
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <Button
+            title={'비밀번호 변경'}
+            containerStyle={{
+              width: 200,
+              marginHorizontal: 40,
+              marginVertical: 10,
+            }}
+            onPress={() => navigate('PasswordChange')}
+          />
+        </View>
+
         <View style={styles.emailContainer}>
           <Text style={styles.email}>{profile?.email}</Text>
-          <MaterialIcon name="verified" size={15} color={colors.SECONDARY} />
+          <MaterialIcon name="verified" size={15} color={colors.blue2} />
         </View>
       </View>
 
@@ -118,11 +149,11 @@ const ProfileSettings: FC<Props> = props => {
 
       <View style={styles.settingOptionsContainer}>
         <Pressable onPress={() => handleLogout(true)} style={styles.logoutBtn}>
-          <AntDesign name="logout" size={20} color={colors.CONTRAST} />
+          <AntDesign name="logout" size={20} color={colors.blue1} />
           <Text style={styles.logoutBtnTitle}>Logout From All</Text>
         </Pressable>
         <Pressable onPress={() => handleLogout()} style={styles.logoutBtn}>
-          <AntDesign name="logout" size={20} color={colors.CONTRAST} />
+          <AntDesign name="logout" size={20} color={colors.blue1} />
           <Text style={styles.logoutBtnTitle}>Logout</Text>
         </Pressable>
       </View>
@@ -142,17 +173,21 @@ const ProfileSettings: FC<Props> = props => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    height: '100%',
+    paddingTop: 20,
+    backgroundColor: colors.gray1,
+  },
   titleContainer: {
     borderBottomWidth: 0.5,
-    borderBottomColor: colors.SECONDARY,
+    borderBottomColor: colors.blue2,
     paddingBottom: 5,
     marginTop: 15,
   },
   title: {
     fontWeight: 'bold',
     fontSize: 18,
-    color: colors.SECONDARY,
+    color: colors.blue2,
   },
   settingOptionsContainer: {
     marginTop: 15,
@@ -163,21 +198,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   linkText: {
-    color: colors.SECONDARY,
+    color: colors.blue1,
     fontStyle: 'italic',
   },
   paddingLeft: {
     paddingLeft: 15,
   },
   nameInput: {
-    color: colors.CONTRAST,
+    width: '90%',
+    color: colors.blue1,
     fontWeight: 'bold',
     fontSize: 18,
     padding: 10,
     borderWidth: 0.5,
-    borderColor: colors.CONTRAST,
+    borderColor: colors.blue2,
     borderRadius: 7,
-    marginTop: 15,
+    marginTop: 5,
   },
   emailContainer: {
     flexDirection: 'row',
@@ -185,7 +221,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   email: {
-    color: colors.CONTRAST,
+    color: colors.blue1,
     marginRight: 10,
   },
   logoutBtn: {
@@ -194,7 +230,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   logoutBtnTitle: {
-    color: colors.CONTRAST,
+    color: colors.blue1,
     fontSize: 18,
     marginLeft: 5,
   },

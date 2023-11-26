@@ -16,7 +16,7 @@ const AppHeader: FC<Props> = ({title}) => {
   return (
     <View style={styles.container}>
       <Pressable onPress={goBack}>
-        <AntDesign name="arrowleft" size={24} color={colors.CONTRAST} />
+        <AntDesign name="arrowleft" size={24} color={'black'} />
       </Pressable>
 
       <Text style={styles.title}>{title}</Text>
@@ -29,11 +29,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: colors.PRIMARY,
+    backgroundColor: colors.gray2,
     height: 45,
   },
   title: {
-    color: colors.CONTRAST,
+    color: 'black',
     fontSize: 18,
   },
 });

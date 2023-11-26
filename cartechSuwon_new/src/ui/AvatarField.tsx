@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     width: avatarSize,
     height: avatarSize,
     borderRadius: avatarSize / 2,
-    backgroundColor: colors.SECONDARY,
+    backgroundColor: colors.blue2,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 4,

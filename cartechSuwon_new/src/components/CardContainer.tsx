@@ -18,7 +18,7 @@ const CardContainer: FC<Props> = ({
         styles.card,
         {
           width: 250,
-          height: 50 * size,
+          height: 60 * size,
           borderRadius: 20,
         },
       ]}>
@@ -28,7 +28,7 @@ const CardContainer: FC<Props> = ({
 };
 
 const styles = StyleSheet.create({
-  card: {backgroundColor: '#2288D1', justifyContent: 'center'},
+  card: {backgroundColor: '#2288D1'},
   card__row: {},
 });
 
