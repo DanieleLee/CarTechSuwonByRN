@@ -176,6 +176,9 @@ export const signIn: RequestHandler = async (req, res) => {
       avatar: user.avatar?.url,
       followers: user.followers.length,
       followings: user.followings.length,
+      tel1: user.tel1,
+      tel2: user.tel2,
+      address: user.address,
     },
     token,
   });
@@ -185,7 +188,7 @@ export const updateProfile: RequestHandler = async (
   req: RequestWithFiles,
   res
 ) => {
-  const { name } = req.body;
+  const { name, tel1, tel2, address, email } = req.body;
   const avatar = req.files?.avatar as formidable.File;
 
   const user = await User.findById(req.user.id);
@@ -198,6 +201,11 @@ export const updateProfile: RequestHandler = async (
     return res.status(422).json({ error: "Invalid name!" });
 
   user.name = name;
+
+  user.tel1 = tel1;
+  user.tel2 = tel2;
+  user.address = address;
+  user.email = email;
 
   if (avatar) {
     // if there is already an avatar file, we want to remove that

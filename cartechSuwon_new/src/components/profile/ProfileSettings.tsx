@@ -26,6 +26,10 @@ interface Props {}
 interface ProfileInfo {
   name: string;
   avatar?: string;
+  tel1?: string;
+  tel2?: string;
+  address?: string;
+  email: string;
 }
 
 const ProfileSettings: FC<Props> = props => {
@@ -37,10 +41,10 @@ const ProfileSettings: FC<Props> = props => {
   const {navigate} =
     useNavigation<NavigationProp<ProfileNavigatorStackParamList>>();
 
-  const isSame = deepEqual(userInfo, {
-    name: profile?.name,
-    avatar: profile?.avatar,
-  });
+  // const isSame = deepEqual(userInfo, {
+  //   name: profile?.name,
+  //   avatar: profile?.avatar,
+  // });
 
   const handleLogout = async (fromAll?: boolean) => {
     dispatch(updateBusyState(true));
@@ -68,8 +72,16 @@ const ProfileSettings: FC<Props> = props => {
             type: 'error',
           }),
         );
+
       const formData = new FormData();
       formData.append('name', userInfo.name);
+      formData.append('tel1', userInfo.tel1);
+      formData.append('tel2', userInfo.tel2);
+      formData.append('address', userInfo.address);
+      formData.append(
+        'email',
+        userInfo.email === undefined ? profile?.email : userInfo.email,
+      );
       const client = await getClient({'Content-Type': 'multipart/form-data'});
       const {data} = await client.post('/auth/update-profile', formData);
 
@@ -88,7 +100,14 @@ const ProfileSettings: FC<Props> = props => {
   };
 
   useEffect(() => {
-    if (profile) setUserInfo({name: profile.name, avatar: profile.avatar});
+    if (profile)
+      setUserInfo({
+        name: profile.name,
+        avatar: profile.avatar,
+        tel1: profile.tel1,
+        tel2: profile.tel2,
+        address: profile.address,
+      });
   }, [profile]);
 
   return (
@@ -110,10 +129,10 @@ const ProfileSettings: FC<Props> = props => {
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'space-between',
             alignItems: 'center',
+            justifyContent: 'space-between',
           }}>
-          <Text style={{marginTop: 5}}>이름</Text>
+          <Text style={{marginTop: 5, paddingRight: 10}}>이름</Text>
           <TextInput
             onChangeText={text => setUserInfo({...userInfo, name: text})}
             style={styles.nameInput}
@@ -123,24 +142,86 @@ const ProfileSettings: FC<Props> = props => {
         <View
           style={{
             flexDirection: 'row',
+            alignItems: 'center',
             justifyContent: 'space-between',
+          }}>
+          <Text style={{marginTop: 5, paddingRight: 10}}>전화번호</Text>
+          <TextInput
+            onChangeText={text => setUserInfo({...userInfo, tel1: text})}
+            style={styles.nameInput}
+            value={userInfo.tel1}
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+          <Text style={{marginTop: 5, paddingRight: 10}}>핸드폰번호</Text>
+          <TextInput
+            onChangeText={text => setUserInfo({...userInfo, tel2: text})}
+            style={styles.nameInput}
+            value={userInfo.tel2}
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+          <Text style={{marginTop: 5, paddingRight: 10}}>주소</Text>
+          <TextInput
+            onChangeText={text => setUserInfo({...userInfo, address: text})}
+            style={styles.nameInput}
+            value={userInfo.address}
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+          <Text style={{marginTop: 5, paddingRight: 10}}>이메일</Text>
+          <TextInput
+            onChangeText={text => setUserInfo({...userInfo, email: text})}
+            style={styles.nameInput}
+            value={profile?.email}
+          />
+          {/* <MaterialIcon name="verified" size={15} color={colors.blue2} /> */}
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
             alignItems: 'center',
           }}>
           <Button
+            title={'변경하기'}
+            containerStyle={{
+              width: 200,
+              // marginHorizontal: 40,
+              marginVertical: 5,
+            }}
+            onPress={() => handleSubmit()}
+          />
+          {/* <Button
             title={'비밀번호 변경'}
             containerStyle={{
               width: 200,
-              marginHorizontal: 40,
-              marginVertical: 10,
+              // marginHorizontal: 40,
+              marginVertical: 5,
             }}
             onPress={() => navigate('PasswordChange')}
-          />
+          /> */}
         </View>
 
-        <View style={styles.emailContainer}>
+        {/* <View style={styles.emailContainer}>
           <Text style={styles.email}>{profile?.email}</Text>
           <MaterialIcon name="verified" size={15} color={colors.blue2} />
-        </View>
+        </View> */}
       </View>
 
       <View style={styles.titleContainer}>
@@ -158,7 +239,7 @@ const ProfileSettings: FC<Props> = props => {
         </Pressable>
       </View>
 
-      {!isSame ? (
+      {/* {!isSame ? (
         <View style={styles.marginTop}>
           <AppButton
             onPress={handleSubmit}
@@ -167,7 +248,7 @@ const ProfileSettings: FC<Props> = props => {
             busy={busy}
           />
         </View>
-      ) : null}
+      ) : null} */}
     </View>
   );
 };
@@ -205,15 +286,16 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
   },
   nameInput: {
-    width: '90%',
+    width: '80%',
     color: colors.blue1,
     fontWeight: 'bold',
-    fontSize: 18,
-    padding: 10,
+    fontSize: 14,
+    padding: 5,
     borderWidth: 0.5,
     borderColor: colors.blue2,
     borderRadius: 7,
     marginTop: 5,
+    right: 10,
   },
   emailContainer: {
     flexDirection: 'row',

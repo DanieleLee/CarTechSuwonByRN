@@ -24,6 +24,9 @@ export const formatProfile = (user: UserDocument) => {
     avatar: user.avatar?.url,
     followers: user.followers.length,
     followings: user.followings.length,
+    tel1: user.tel1,
+    tel2: user.tel2,
+    address: user.address,
   };
 };
 

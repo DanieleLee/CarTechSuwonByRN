@@ -13,6 +13,9 @@ export interface UserDocument {
   favorites: ObjectId[];
   followers: ObjectId[];
   followings: ObjectId[];
+  tel1: string;
+  tel2: string;
+  address: string;
 }
 interface Methods {
   comparePassword(password: string): Promise<boolean>;
@@ -62,6 +65,15 @@ const userSchema = new Schema<UserDocument, {}, Methods>(
         ref: "User",
       },
     ],
+    tel1: {
+      type: String,
+    },
+    tel2: {
+      type: String,
+    },
+    address: {
+      type: String,
+    },
     tokens: [String],
   },
   { timestamps: true }

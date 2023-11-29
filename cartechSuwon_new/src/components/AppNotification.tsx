@@ -38,7 +38,7 @@ const AppNotification: FC<Props> = props => {
 
     let timeoutId = 0;
     const performAnimation = () => {
-      height.value = withTiming(45, {
+      height.value = withTiming(70, {
         duration: 150,
       });
 
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    // paddingTop: 20,
   },
   message: {
     fontSize: 18,

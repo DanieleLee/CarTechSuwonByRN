@@ -9,6 +9,9 @@ export interface UserProfile {
   avatar?: string;
   followers: number;
   followings: number;
+  tel1: string;
+  tel2: string;
+  address: string;
 }
 
 interface AuthState {
