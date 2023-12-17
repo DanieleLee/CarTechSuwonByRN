@@ -2,7 +2,14 @@ import AppHeader from '@components/AppHeader';
 import AvatarField from '@ui/AvatarField';
 import colors from '@utils/colors';
 import {FC, useEffect, useState} from 'react';
-import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import AppButton from '@ui/AppButton';
@@ -107,13 +114,13 @@ const ProfileSettings: FC<Props> = props => {
         tel1: profile.tel1,
         tel2: profile.tel2,
         address: profile.address,
+        // email: undefined,
       });
   }, [profile]);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <AppHeader title="Settings" />
-
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Profile Settings</Text>
       </View>
@@ -207,17 +214,26 @@ const ProfileSettings: FC<Props> = props => {
             }}
             onPress={() => handleSubmit()}
           />
-          {/* <Button
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Button
             title={'비밀번호 변경'}
             containerStyle={{
               width: 200,
               // marginHorizontal: 40,
-              marginVertical: 5,
+              // marginVertical: 5,
+            }}
+            buttonStyle={{
+              backgroundColor: 'rgba(200,200,216,1)',
             }}
             onPress={() => navigate('PasswordChange')}
-          /> */}
+          />
         </View>
-
         {/* <View style={styles.emailContainer}>
           <Text style={styles.email}>{profile?.email}</Text>
           <MaterialIcon name="verified" size={15} color={colors.blue2} />
@@ -249,14 +265,14 @@ const ProfileSettings: FC<Props> = props => {
           />
         </View>
       ) : null} */}
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    paddingTop: 20,
+    // paddingTop: 20,
     backgroundColor: colors.gray1,
   },
   titleContainer: {

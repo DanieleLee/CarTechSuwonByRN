@@ -6,11 +6,15 @@ import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import AppButton from '@ui/AppButton';
-import {getClient} from 'src/api/client';
+import client, {getClient} from 'src/api/client';
 import catchAsyncError from 'src/api/catchError';
 import {updateNotification} from 'src/store/notification';
 import {useDispatch, useSelector} from 'react-redux';
-import {Keys, removeFromAsyncStorage} from '@utils/asyncStorage';
+import {
+  Keys,
+  getFromAsyncStorage,
+  removeFromAsyncStorage,
+} from '@utils/asyncStorage';
 import {
   getAuthState,
   updateBusyState,
@@ -22,17 +26,51 @@ import {Button} from '@rneui/base';
 
 interface Props {}
 interface ProfileInfo {
-  name: string;
-  avatar?: string;
+  password: string;
+  newPassword: string;
+  newPassword_verify: string;
 }
 
 const PasswordChange: FC<Props> = props => {
   const [busy, setBusy] = useState(false);
+  const [passInfo, setPassInfo] = useState<ProfileInfo>({
+    password: '',
+    newPassword: '',
+    newPassword_verify: '',
+  });
   const dispatch = useDispatch();
+  const {profile} = useSelector(getAuthState);
 
   const handleSubmit = async () => {
     setBusy(true);
     try {
+      if (
+        !passInfo.password.trim() ||
+        !passInfo.newPassword.trim() ||
+        !passInfo.newPassword_verify.trim()
+      ) {
+        return dispatch(
+          updateNotification({
+            message: 'password is required',
+            type: 'error',
+          }),
+        );
+      }
+
+      const token = await getFromAsyncStorage(Keys.AUTH_TOKEN);
+      if (!token) {
+        return dispatch(updateBusyState(false));
+      }
+
+      const {data} = await client.post('/auth/update-password', {
+        token: token,
+        userId: profile?.id,
+        email: profile?.email,
+        password: passInfo.newPassword,
+        passwordCurrent: passInfo.password,
+      });
+      //userId값으로 메일value전달.
+      console.log(data);
       //   if (!userInfo.name.trim())
       //     return dispatch(
       //       updateNotification({
@@ -80,7 +118,10 @@ const PasswordChange: FC<Props> = props => {
           <Text style={{marginTop: 5, paddingRight: 23}}>
             현재 비밀번호 입력
           </Text>
-          <TextInput style={styles.nameInput} />
+          <TextInput
+            onChangeText={text => setPassInfo({...passInfo, password: text})}
+            style={styles.nameInput}
+          />
         </View>
         <View
           style={{
@@ -91,7 +132,10 @@ const PasswordChange: FC<Props> = props => {
           <Text style={{marginTop: 5, paddingRight: 10}}>
             변경할 비밀번호 입력
           </Text>
-          <TextInput style={styles.nameInput} />
+          <TextInput
+            onChangeText={text => setPassInfo({...passInfo, newPassword: text})}
+            style={styles.nameInput}
+          />
         </View>
         <View
           style={{
@@ -102,7 +146,12 @@ const PasswordChange: FC<Props> = props => {
           <Text style={{marginTop: 5, paddingRight: 10}}>
             변경할 비밀번호 확인
           </Text>
-          <TextInput style={styles.nameInput} />
+          <TextInput
+            onChangeText={text =>
+              setPassInfo({...passInfo, newPassword_verify: text})
+            }
+            style={styles.nameInput}
+          />
         </View>
         <View
           style={{
@@ -117,6 +166,7 @@ const PasswordChange: FC<Props> = props => {
               //   marginHorizontal: 40,
               marginVertical: 10,
             }}
+            onPress={() => handleSubmit()}
           />
         </View>
       </View>
@@ -127,7 +177,7 @@ const PasswordChange: FC<Props> = props => {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    paddingTop: 20,
+    // paddingTop: 10,
     backgroundColor: colors.gray1,
   },
   titleContainer: {

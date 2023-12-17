@@ -21,6 +21,7 @@ import CardRows from '@ui/CardRows';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {Badge, Divider} from '@rneui/base';
 import {Header as HeaderHome} from '@rneui/themed';
+import HomeAlarm from '@components/HomeAlarm';
 // import {useFetchLatestAudios} from 'src/hooks/query';
 
 interface Props {}
@@ -30,6 +31,7 @@ const Home_new: FC<Props> = props => {
   const [selectedAudio, setSelectedAudio] = useState<AudioData>();
   const [showPlaylistModal, setShowPlaylistModal] = useState(false);
   const [showPlaylistForm, setShowPlaylistForm] = useState(false);
+  const [showAlarm, setShowAlarm] = useState(false);
 
   const {data} = useFetchPlaylist();
 
@@ -144,6 +146,14 @@ const Home_new: FC<Props> = props => {
     },
   ];
 
+  const clickAlarm = () => {
+    setShowAlarm(true);
+  };
+
+  const closeAlarm = () => {
+    setShowAlarm(false);
+  };
+
   return (
     <>
       <HeaderHome
@@ -156,6 +166,7 @@ const Home_new: FC<Props> = props => {
             size={20}
             name={'bell-outline'}
             color={colors.PRIMARY}
+            onPress={clickAlarm}
           />
         }
         containerStyle={{backgroundColor: '#E1E8ED'}}
@@ -253,6 +264,8 @@ const Home_new: FC<Props> = props => {
           onSubmit={handlePlaylistSubmit}
         />
       </View>
+
+      <HomeAlarm visible={showAlarm} onRequestClose={closeAlarm} />
     </>
   );
 };

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 // react-native-document-picker
 import com.reactnativedocumentpicker.RNDocumentPickerPackage;
+// react-native-gesture-handler
+import com.swmansion.gesturehandler.RNGestureHandlerPackage;
 // react-native-image-crop-picker
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 // react-native-pager-view
@@ -74,6 +76,7 @@ public class PackageList {
       new MainReactPackage(mConfig),
       new AsyncStoragePackage(),
       new RNDocumentPickerPackage(),
+      new RNGestureHandlerPackage(),
       new PickerPackage(),
       new PagerViewPackage(),
       new ReanimatedPackage(),
