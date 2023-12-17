@@ -127,10 +127,15 @@ export const grantValid: RequestHandler = async (req, res) => {
 };
 
 export const updatePassword: RequestHandler = async (req, res) => {
-  const { password, userId } = req.body;
+  const { password, userId, passwordCurrent } = req.body;
 
   const user = await User.findById(userId);
   if (!user) return res.status(403).json({ error: "Unauthorized access!" });
+
+  // matched by currentPass
+  const matchedCurrent = await user.comparePassword(passwordCurrent);
+  if (!matchedCurrent)
+    return res.status(422).json({ error: "The current password not be same!" });
 
   const matched = await user.comparePassword(password);
   if (matched)

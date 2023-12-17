@@ -53,7 +53,8 @@ export const UpdatePasswordSchema = yup.object().shape({
     .matches(
       /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#\$%\^&\*])[a-zA-Z\d!@#\$%\^&\*]+$/,
       "Password is too simple!"
-    ),
+    )
+    .required("Invalid password."),
 });
 
 export const SignInValidationSchema = yup.object().shape({
