@@ -25,7 +25,7 @@ const ProfileContainer: FC<Props> = ({profile}) => {
         <Text style={styles.profileName}>{profile.name}</Text>
         <View style={styles.flexRow}>
           <Text style={styles.email}>{profile.email}</Text>
-          <MaterialIcon name="verified" size={15} color={colors.SECONDARY} />
+          <MaterialIcon name="verified" size={15} color={colors.blue2} />
         </View>
 
         <View style={styles.flexRow}>
@@ -54,12 +54,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   profileName: {
-    color: colors.CONTRAST,
+    color: colors.PRIMARY,
     fontSize: 18,
     fontWeight: '700',
   },
   email: {
-    color: colors.CONTRAST,
+    color: colors.PRIMARY,
     marginRight: 5,
   },
   flexRow: {
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   profileActionLink: {
-    backgroundColor: colors.SECONDARY,
+    backgroundColor: colors.blue2,
     color: colors.PRIMARY,
     paddingHorizontal: 4,
     paddingVertical: 2,

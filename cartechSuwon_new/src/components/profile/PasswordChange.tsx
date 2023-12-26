@@ -177,7 +177,7 @@ const PasswordChange: FC<Props> = props => {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    // paddingTop: 10,
+    paddingTop: 15,
     backgroundColor: colors.gray1,
   },
   titleContainer: {

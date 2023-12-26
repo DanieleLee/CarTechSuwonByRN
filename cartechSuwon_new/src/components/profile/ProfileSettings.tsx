@@ -272,7 +272,7 @@ const ProfileSettings: FC<Props> = props => {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    // paddingTop: 20,
+    paddingTop: 15,
     backgroundColor: colors.gray1,
   },
   titleContainer: {

@@ -11,6 +11,7 @@ const blue2 = '#2288D1';
 
 const gray1 = '#EEF3F6';
 const gray2 = '#D3D4DD';
+const gray3 = '#b8b8bf';
 
 const colors = {
   PRIMARY,
@@ -24,6 +25,7 @@ const colors = {
   blue2,
   gray1,
   gray2,
+  gray3,
 };
 
 export default colors;

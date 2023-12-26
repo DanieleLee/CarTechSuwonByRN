@@ -23,10 +23,8 @@ const Profile: FC<Props> = props => {
         screenOptions={{
           tabBarStyle: styles.tabBarStyle,
           tabBarLabelStyle: styles.tabBarLabelStyle,
+          tabBarContentContainerStyle: {backgroundColor: colors.blue1},
         }}>
-        <Tab.Screen name="Uploads" component={UploadsTab} />
-        <Tab.Screen name="Playlist" component={PlaylistTab} />
-        <Tab.Screen name="Favorites" component={FavoriteTab} />
         <Tab.Screen name="History" component={HistoryTab} />
       </Tab.Navigator>
     </View>
@@ -38,9 +36,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     paddingTop: 30,
+    backgroundColor: colors.gray1,
   },
   tabBarStyle: {
-    marginBottom: 20,
+    // marginBottom: 20,
     backgroundColor: 'transparent',
     elevation: 0,
     shadowRadius: 0,
