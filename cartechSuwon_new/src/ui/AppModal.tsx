@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.INACTIVE_CONTRAST,
   },
   modal: {
-    backgroundColor: colors.PRIMARY,
+    backgroundColor: colors.gray1,
     height: modalHeight,
     position: 'absolute',
     bottom: 0,
@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 10,
     borderTopStartRadius: 10,
     overflow: 'hidden',
+    alignItems: 'center',
   },
 });
 

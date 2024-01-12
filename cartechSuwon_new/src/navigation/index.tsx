@@ -1,4 +1,8 @@
-import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import {
+  DefaultTheme,
+  NavigationContainer,
+  useNavigation,
+} from '@react-navigation/native';
 import {FC, useEffect} from 'react';
 import AuthNavigator from './AuthNavigator';
 import {useDispatch, useSelector} from 'react-redux';
@@ -14,6 +18,10 @@ import client from 'src/api/client';
 import Loader from '@ui/Loader';
 import {StyleSheet, View} from 'react-native';
 import colors from '@utils/colors';
+import ProfileNavigator from './ProfileNavigator';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import PartnerProducts from '@components/Partners/PartnerProducts';
+import PartnersNavigator from './PartnersNavigator';
 
 interface Props {}
 
@@ -29,6 +37,7 @@ const AppTheme = {
 const AppNavigator: FC<Props> = props => {
   const {loggedIn, busy} = useSelector(getAuthState);
   const dispatch = useDispatch();
+  const Stack = createNativeStackNavigator();
 
   useEffect(() => {
     const fetchAuthInfo = async () => {
@@ -61,7 +70,7 @@ const AppNavigator: FC<Props> = props => {
   }, []);
 
   return (
-    <NavigationContainer theme={AppTheme}>
+    <NavigationContainer theme={AppTheme} independent={true}>
       {busy ? (
         <View
           style={{
@@ -75,7 +84,16 @@ const AppNavigator: FC<Props> = props => {
         </View>
       ) : null}
 
-      {loggedIn ? <TabNavigator /> : <AuthNavigator />}
+      {loggedIn ? (
+        <Stack.Navigator
+          screenOptions={{headerShown: false}}
+          initialRouteName="HOME">
+          <Stack.Screen name="HOME" component={TabNavigator} />
+          {/* <Stack.Screen name="PartnerProducts" component={PartnerProducts} /> */}
+        </Stack.Navigator>
+      ) : (
+        <AuthNavigator />
+      )}
     </NavigationContainer>
   );
 };

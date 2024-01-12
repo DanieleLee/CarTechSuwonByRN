@@ -12,6 +12,9 @@ import Collect from '@views/Collect';
 import {Image} from 'react-native';
 import Products from '@views/Products';
 import Payout from '@views/Payout';
+import PartnerProducts from '@components/Partners/PartnerProducts';
+import {NavigationContainer} from '@react-navigation/native';
+import PartnersNavigator from './PartnersNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -63,9 +66,27 @@ const TabNavigator = () => {
         }}
       />
 
-      <Tab.Screen
+      {/* <Tab.Screen
         name="ProductsScreen"
         component={Products}
+        // component={PartnersNavigator}
+        options={{
+          tabBarIcon: props => {
+            return (
+              <MaterialComIcon
+                name="shopping"
+                size={props.size}
+                color={props.color}
+              />
+            );
+          },
+          tabBarLabel: '협력사상품',
+        }}
+      /> */}
+
+      <Tab.Screen
+        name="ProductsScreen"
+        component={PartnersNavigator}
         options={{
           tabBarIcon: props => {
             return (

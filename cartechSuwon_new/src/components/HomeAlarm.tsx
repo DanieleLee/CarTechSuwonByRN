@@ -1,19 +1,20 @@
 import AppModal from '@ui/AppModal';
 import colors from '@utils/colors';
-import {FC} from 'react';
+import {FC, ReactNode} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
 
 interface Props {
   visible: boolean;
   onRequestClose(): void;
+  childNode?: ReactNode;
 }
 
-const HomeAlarm: FC<Props> = ({visible, onRequestClose}) => {
+const HomeAlarm: FC<Props> = ({visible, childNode, onRequestClose}) => {
   return (
     <AppModal visible={visible} onRequestClose={onRequestClose}>
       <View style={styles.container}>
-        <Text>HomeAlarm</Text>
+        {childNode ? childNode : <Text>HomeAlarm</Text>}
       </View>
     </AppModal>
   );
@@ -22,8 +23,8 @@ const HomeAlarm: FC<Props> = ({visible, onRequestClose}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    padding: 20,
+    // padding: 10,
+    position: 'absolute',
   },
   poster: {
     width: 200,

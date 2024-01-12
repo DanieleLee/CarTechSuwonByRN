@@ -1,0 +1,28 @@
+import {FC} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+import PartnerProducts from '@components/Partners/PartnerProducts';
+import {PartnersNavigatorStackParamList} from 'src/@types/partners';
+import Products from '@views/Products';
+
+interface Props {}
+
+const Stack = createNativeStackNavigator<PartnersNavigatorStackParamList>();
+
+const PartnersNavigator: FC<Props> = props => {
+  return (
+    <Stack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName="Products">
+      <Stack.Screen name="Products" component={Products} />
+      <Stack.Screen name="PartnerProducts" component={PartnerProducts} />
+    </Stack.Navigator>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {},
+});
+
+export default PartnersNavigator;

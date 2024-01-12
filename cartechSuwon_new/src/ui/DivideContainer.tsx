@@ -1,27 +1,28 @@
+import {Text, Divider, Header} from '@rneui/themed';
+import colors from '@utils/colors';
 import {FC} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {Divider} from 'react-native-elements';
+import {Pressable, StyleSheet, View} from 'react-native';
+// import {Divider} from 'react-native-elements';
 import {ProductMenus} from 'src/@types/menu';
 
 interface Props {
   divideMenu: ProductMenus[];
+  divideStyle: Object;
+  pressEvt?(): void;
 }
 
-const divideConPress = (evt: string) => {
-  console.log(evt);
-};
-
-const DivideContainer: FC<Props> = ({divideMenu}) => {
+const DivideContainer: FC<Props> = ({divideMenu, pressEvt, divideStyle}) => {
   return (
     <View style={styles.horizontal}>
       {divideMenu.map((menu, idx) => {
         return (
-          <View key={idx}>
-            <Pressable onPress={() => divideConPress(menu.pressEvt)}>
+          <View key={idx} style={styles.container}>
+            <Pressable
+              onPress={() =>
+                pressEvt !== undefined ? pressEvt() : console.log('@@@@@@')
+              }>
               <Text style={styles.horizontalText}>{menu.title}</Text>
             </Pressable>
-
-            <Divider />
           </View>
         );
       })}
@@ -30,15 +31,27 @@ const DivideContainer: FC<Props> = ({divideMenu}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    width: 100,
+    borderWidth: 1,
+    borderColor: 'black',
+    marginRight: 20,
+    marginTop: 20,
+  },
   horizontal: {
+    width: '100%',
     marginBottom: 10,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   horizontalText: {
-    textAlign: 'center',
+    textAlign: 'left',
     fontSize: 16,
     marginVertical: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
+  heading: {},
 });
 
 export default DivideContainer;
