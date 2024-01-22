@@ -1,14 +1,14 @@
 import {Text, Divider, Header} from '@rneui/themed';
 import colors from '@utils/colors';
 import {FC} from 'react';
-import {Pressable, StyleSheet, View} from 'react-native';
+import {Image, Pressable, StyleSheet, View} from 'react-native';
 // import {Divider} from 'react-native-elements';
 import {ProductMenus} from 'src/@types/menu';
 
 interface Props {
   divideMenu: ProductMenus[];
   divideStyle: Object;
-  pressEvt?(): void;
+  pressEvt?(type: string): void;
 }
 
 const DivideContainer: FC<Props> = ({divideMenu, pressEvt, divideStyle}) => {
@@ -19,8 +19,14 @@ const DivideContainer: FC<Props> = ({divideMenu, pressEvt, divideStyle}) => {
           <View key={idx} style={styles.container}>
             <Pressable
               onPress={() =>
-                pressEvt !== undefined ? pressEvt() : console.log('@@@@@@')
+                pressEvt !== undefined
+                  ? pressEvt(menu.pressEvt)
+                  : console.log('DivideContainPressEvt')
               }>
+              <Image
+                source={menu.poster || require('../assets/music.png')}
+                style={styles.poster}
+              />
               <Text style={styles.horizontalText}>{menu.title}</Text>
             </Pressable>
           </View>
@@ -37,6 +43,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     marginRight: 20,
     marginTop: 20,
+    overflow: 'hidden',
   },
   horizontal: {
     width: '100%',
@@ -50,6 +57,12 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     paddingLeft: 10,
     paddingRight: 10,
+  },
+  poster: {
+    height: 100,
+    aspectRatio: 1,
+    borderRadius: 7,
+    resizeMode: 'stretch',
   },
   heading: {},
 });

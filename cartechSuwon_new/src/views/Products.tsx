@@ -13,10 +13,26 @@ import {PartnersNavigatorStackParamList} from 'src/@types/partners';
 interface Props {}
 
 const dummyMenuData = [
-  {title: 'title1', pressEvt: 'press1'},
-  {title: 'title2', pressEvt: 'press2'},
-  {title: 'title2', pressEvt: 'press2'},
-  {title: 'title2', pressEvt: 'press2'},
+  {
+    title: '전면부품',
+    poster: require('../assets/car_front.png'),
+    pressEvt: 'front',
+  },
+  {
+    title: '측면부품',
+    poster: require('../assets/car_front.png'),
+    pressEvt: 'side',
+  },
+  {
+    title: '후면부품',
+    poster: require('../assets/car_front.png'),
+    pressEvt: 'back',
+  },
+  {
+    title: '실내부품',
+    poster: require('../assets/car_front.png'),
+    pressEvt: 'interior',
+  },
 ];
 
 const Products: FC<Props> = props => {
@@ -39,8 +55,8 @@ const Products: FC<Props> = props => {
     return {};
   };
 
-  const productsNav = () => {
-    navigate('PartnerProducts');
+  const productsNav = (prop_type: string) => {
+    navigate('PartnerProducts', {type: prop_type});
   };
 
   return (

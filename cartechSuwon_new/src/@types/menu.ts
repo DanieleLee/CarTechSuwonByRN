@@ -1,6 +1,7 @@
 export interface ProductMenus {
   title: string;
   pressEvt: string;
+  poster: string;
   //   visible: boolean;
 }
 

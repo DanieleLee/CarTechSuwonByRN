@@ -1,5 +1,5 @@
 export type PartnersNavigatorStackParamList = {
   Root: undefined;
-  PartnerProducts: undefined;
+  PartnerProducts: {type: string};
   Products: undefined;
 };
