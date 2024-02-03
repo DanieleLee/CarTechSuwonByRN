@@ -12,7 +12,7 @@ import Collect from '@views/Collect';
 import {Image} from 'react-native';
 import Products from '@views/Products';
 import Payout from '@views/Payout';
-import PartnerProducts from '@components/Partners/PartnerProducts';
+import PartnerProducts from '@views/partners/PartnerProducts';
 import {NavigationContainer} from '@react-navigation/native';
 import PartnersNavigator from './PartnersNavigator';
 

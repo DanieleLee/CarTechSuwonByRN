@@ -20,7 +20,7 @@ const DivideContainer: FC<Props> = ({divideMenu, pressEvt, divideStyle}) => {
             <Pressable
               onPress={() =>
                 pressEvt !== undefined
-                  ? pressEvt(menu.pressEvt)
+                  ? pressEvt(menu._id)
                   : console.log('DivideContainPressEvt')
               }>
               <Image

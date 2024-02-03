@@ -1,5 +1,5 @@
 import HomeAlarm from '@components/HomeAlarm';
-import PartnerProducts from '@components/Partners/PartnerProducts';
+import PartnerProducts from '@views/partners/PartnerProducts';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import DivideContainer from '@ui/DivideContainer';
@@ -14,21 +14,25 @@ interface Props {}
 
 const dummyMenuData = [
   {
+    _id: 'a1',
     title: '전면부품',
     poster: require('../assets/car_front.png'),
     pressEvt: 'front',
   },
   {
+    _id: 'a2',
     title: '측면부품',
     poster: require('../assets/car_front.png'),
     pressEvt: 'side',
   },
   {
+    _id: 'a3',
     title: '후면부품',
     poster: require('../assets/car_front.png'),
     pressEvt: 'back',
   },
   {
+    _id: 'a4',
     title: '실내부품',
     poster: require('../assets/car_front.png'),
     pressEvt: 'interior',
@@ -55,8 +59,8 @@ const Products: FC<Props> = props => {
     return {};
   };
 
-  const productsNav = (prop_type: string) => {
-    navigate('PartnerProducts', {type: prop_type});
+  const productsNav = (prop_id: string) => {
+    navigate('PartnerProducts', {id: prop_id, partProduct: dummyMenuData});
   };
 
   return (

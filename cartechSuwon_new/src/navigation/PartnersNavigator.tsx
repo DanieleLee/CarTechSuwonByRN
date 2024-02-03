@@ -2,7 +2,7 @@ import {FC} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import PartnerProducts from '@components/Partners/PartnerProducts';
+import PartnerProducts from '@views/partners/PartnerProducts';
 import {PartnersNavigatorStackParamList} from 'src/@types/partners';
 import Products from '@views/Products';
 

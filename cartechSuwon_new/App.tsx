@@ -7,6 +7,7 @@ import AppNavigator from 'src/navigation';
 import AuthNavigator from 'src/navigation/AuthNavigator';
 import store from 'src/store';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const queryClient = new QueryClient();
 
@@ -16,15 +17,17 @@ const App = () => {
   });
 
   return (
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <SafeAreaProvider>
-          <AppContainer>
-            <AppNavigator />
-          </AppContainer>
-        </SafeAreaProvider>
-      </QueryClientProvider>
-    </Provider>
+    <GestureHandlerRootView style={{flex: 1}}>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <SafeAreaProvider>
+            <AppContainer>
+              <AppNavigator />
+            </AppContainer>
+          </SafeAreaProvider>
+        </QueryClientProvider>
+      </Provider>
+    </GestureHandlerRootView>
   );
 };
 
