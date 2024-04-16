@@ -16,3 +16,8 @@ export type ProfileNavigatorStackParamList = {
   ProfileSettings: undefined;
   PasswordChange: Object | undefined;
 };
+
+export type TopNavigatorStackParamList = {
+  Cart: undefined;
+  Cart2: undefined;
+};

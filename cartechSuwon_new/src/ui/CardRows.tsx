@@ -12,7 +12,9 @@ const CardRows = <T extends any>({data, rowStyle}: Props<T>) => {
       {data.map((item, index) => {
         return (
           <View key={index} style={[styles.item, item.style]}>
-            <Text style={{color: 'black', paddingTop: 4}}>{item.text}</Text>
+            <Text style={[styles.itemText, item.textStyle]}>
+              {item.text ? item.text : null}
+            </Text>
             <View style={styles.components}>
               {item.components ? item.components : null}
             </View>
@@ -26,14 +28,16 @@ const CardRows = <T extends any>({data, rowStyle}: Props<T>) => {
 const styles = StyleSheet.create({
   //   container: {backgroundColor: 'yellow', width: 100, height: 100},
   item: {
-    color: 'black',
-    fontSize: 20,
-    paddingBottom: 10,
+    // paddingBottom: 10,
     justifyContent: 'space-between',
+  },
+  itemText: {
+    color: 'black',
+    paddingTop: 4,
   },
   components: {
     alignSelf: 'flex-start',
-    paddingTop: 5,
+    // paddingTop: 5,
   },
 });
 

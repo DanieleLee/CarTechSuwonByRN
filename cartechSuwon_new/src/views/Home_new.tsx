@@ -27,80 +27,79 @@ import HomeAlarm from '@components/HomeAlarm';
 interface Props {}
 
 const Home_new: FC<Props> = props => {
-  const [showOptions, setShowOptions] = useState(false);
-  const [selectedAudio, setSelectedAudio] = useState<AudioData>();
-  const [showPlaylistModal, setShowPlaylistModal] = useState(false);
-  const [showPlaylistForm, setShowPlaylistForm] = useState(false);
+  // const [showOptions, setShowOptions] = useState(false);
+  // const [selectedAudio, setSelectedAudio] = useState<AudioData>();
+  // const [showPlaylistModal, setShowPlaylistModal] = useState(false);
+  // const [showPlaylistForm, setShowPlaylistForm] = useState(false);
   const [showAlarm, setShowAlarm] = useState(false);
 
-  const {data} = useFetchPlaylist();
+  // const {data} = useFetchPlaylist();
+  // const dispatch = useDispatch();
 
-  const dispatch = useDispatch();
+  // const handleOnFavPress = async () => {
+  //   if (!selectedAudio) return;
 
-  const handleOnFavPress = async () => {
-    if (!selectedAudio) return;
+  //   try {
+  //     const client = await getClient();
 
-    try {
-      const client = await getClient();
+  //     const {data} = await client.post('/favorite?audioId=' + selectedAudio.id);
+  //   } catch (error) {
+  //     const errorMessage = catchAsyncError(error);
+  //     dispatch(updateNotification({message: errorMessage, type: 'error'}));
+  //   }
 
-      const {data} = await client.post('/favorite?audioId=' + selectedAudio.id);
-    } catch (error) {
-      const errorMessage = catchAsyncError(error);
-      dispatch(updateNotification({message: errorMessage, type: 'error'}));
-    }
+  //   setSelectedAudio(undefined);
+  //   setShowOptions(false);
+  // };
 
-    setSelectedAudio(undefined);
-    setShowOptions(false);
-  };
+  // const handleOnLongPress = (audio: AudioData) => {
+  //   setSelectedAudio(audio);
+  //   setShowOptions(true);
+  // };
 
-  const handleOnLongPress = (audio: AudioData) => {
-    setSelectedAudio(audio);
-    setShowOptions(true);
-  };
+  // const handleOnAddToPlaylist = () => {
+  //   setShowOptions(false);
+  //   setShowPlaylistModal(true);
+  // };
 
-  const handleOnAddToPlaylist = () => {
-    setShowOptions(false);
-    setShowPlaylistModal(true);
-  };
+  // const handlePlaylistSubmit = async (value: PlaylistInfo) => {
+  //   if (!value.title.trim()) return;
 
-  const handlePlaylistSubmit = async (value: PlaylistInfo) => {
-    if (!value.title.trim()) return;
+  //   try {
+  //     const client = await getClient();
+  //     const {data} = await client.post('/playlist/create', {
+  //       resId: selectedAudio?.id,
+  //       title: value.title,
+  //       visibility: value.private ? 'private' : 'public',
+  //     });
 
-    try {
-      const client = await getClient();
-      const {data} = await client.post('/playlist/create', {
-        resId: selectedAudio?.id,
-        title: value.title,
-        visibility: value.private ? 'private' : 'public',
-      });
+  //     console.log(data);
+  //   } catch (error) {
+  //     const errorMessage = catchAsyncError(error);
+  //     console.log(errorMessage);
+  //   }
+  // };
 
-      console.log(data);
-    } catch (error) {
-      const errorMessage = catchAsyncError(error);
-      console.log(errorMessage);
-    }
-  };
+  // const updatePlaylist = async (item: Playlist) => {
+  //   try {
+  //     const client = await getClient();
+  //     const {data} = await client.patch('/playlist', {
+  //       id: item.id,
+  //       item: selectedAudio?.id,
+  //       title: item.title,
+  //       visibility: item.visibility,
+  //     });
 
-  const updatePlaylist = async (item: Playlist) => {
-    try {
-      const client = await getClient();
-      const {data} = await client.patch('/playlist', {
-        id: item.id,
-        item: selectedAudio?.id,
-        title: item.title,
-        visibility: item.visibility,
-      });
-
-      setSelectedAudio(undefined);
-      setShowPlaylistModal(false);
-      dispatch(
-        updateNotification({message: 'New audio added', type: 'success'}),
-      );
-    } catch (error) {
-      const errorMessage = catchAsyncError(error);
-      console.log(errorMessage);
-    }
-  };
+  //     setSelectedAudio(undefined);
+  //     setShowPlaylistModal(false);
+  //     dispatch(
+  //       updateNotification({message: 'New audio added', type: 'success'}),
+  //     );
+  //   } catch (error) {
+  //     const errorMessage = catchAsyncError(error);
+  //     console.log(errorMessage);
+  //   }
+  // };
 
   const card_balance = [
     {
@@ -213,7 +212,7 @@ const Home_new: FC<Props> = props => {
         onAudioLongPress={handleOnLongPress}
       /> */}
 
-        <OptionsModal
+        {/* <OptionsModal
           visible={showOptions}
           onRequestClose={() => {
             setShowOptions(false);
@@ -242,9 +241,9 @@ const Home_new: FC<Props> = props => {
               </Pressable>
             );
           }}
-        />
+        /> */}
 
-        <PlaylistModal
+        {/* <PlaylistModal
           visible={showPlaylistModal}
           onRequestClose={() => {
             setShowPlaylistModal(false);
@@ -262,7 +261,7 @@ const Home_new: FC<Props> = props => {
             setShowPlaylistForm(false);
           }}
           onSubmit={handlePlaylistSubmit}
-        />
+        /> */}
       </View>
 
       <HomeAlarm visible={showAlarm} onRequestClose={closeAlarm} />

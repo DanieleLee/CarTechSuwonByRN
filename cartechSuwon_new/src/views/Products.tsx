@@ -2,7 +2,7 @@ import HomeAlarm from '@components/HomeAlarm';
 import PartnerProducts from '@views/partners/PartnerProducts';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import DivideContainer from '@ui/DivideContainer';
+import ItemCardContainer from '@ui/ItemCardContainer';
 
 import colors from '@utils/colors';
 import {FC, useState} from 'react';
@@ -16,25 +16,29 @@ const dummyMenuData = [
   {
     _id: 'a1',
     title: '전면부품',
-    poster: require('../assets/car_front.png'),
+    poster:
+      'https://res.cloudinary.com/dnd8qmn9i/image/upload/v1701501394/osxcra6cscsa3pg4gngg.jpg',
     pressEvt: 'front',
   },
   {
     _id: 'a2',
     title: '측면부품',
-    poster: require('../assets/car_front.png'),
+    poster:
+      'https://res.cloudinary.com/dnd8qmn9i/image/upload/v1701501394/osxcra6cscsa3pg4gngg.jpg',
     pressEvt: 'side',
   },
   {
     _id: 'a3',
     title: '후면부품',
-    poster: require('../assets/car_front.png'),
+    poster:
+      'https://res.cloudinary.com/dnd8qmn9i/image/upload/v1701501394/osxcra6cscsa3pg4gngg.jpg',
     pressEvt: 'back',
   },
   {
     _id: 'a4',
     title: '실내부품',
-    poster: require('../assets/car_front.png'),
+    poster:
+      'https://res.cloudinary.com/dnd8qmn9i/image/upload/v1701501394/osxcra6cscsa3pg4gngg.jpg',
     pressEvt: 'interior',
   },
 ];
@@ -73,10 +77,10 @@ const Products: FC<Props> = props => {
         visible={showAlarm}
         onRequestClose={closeAlarm}
         childNode={
-          <DivideContainer
+          <ItemCardContainer
             divideMenu={dummyMenuData}
-            divideStyle={divideStyle}
             pressEvt={productsNav}
+            cardStyle={{width: 120}}
           />
         }
       />

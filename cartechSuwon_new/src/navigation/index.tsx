@@ -18,10 +18,8 @@ import client from 'src/api/client';
 import Loader from '@ui/Loader';
 import {StyleSheet, View} from 'react-native';
 import colors from '@utils/colors';
-import ProfileNavigator from './ProfileNavigator';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import PartnerProducts from '@components/Partners/PartnerProducts';
-import PartnersNavigator from './PartnersNavigator';
+import TopNavigator from './TopNavigator';
 
 interface Props {}
 
@@ -89,7 +87,9 @@ const AppNavigator: FC<Props> = props => {
           screenOptions={{headerShown: false}}
           initialRouteName="HOME">
           <Stack.Screen name="HOME" component={TabNavigator} />
-          {/* <Stack.Screen name="PartnerProducts" component={PartnerProducts} /> */}
+          <Stack.Group screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Top" component={TopNavigator} />
+          </Stack.Group>
         </Stack.Navigator>
       ) : (
         <AuthNavigator />

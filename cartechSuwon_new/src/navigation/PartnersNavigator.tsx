@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import PartnerProducts from '@views/partners/PartnerProducts';
 import {PartnersNavigatorStackParamList} from 'src/@types/partners';
 import Products from '@views/Products';
+import PartnerProductsDetail from '@views/partners/PartnerProductsDetail';
 
 interface Props {}
 
@@ -17,6 +18,10 @@ const PartnersNavigator: FC<Props> = props => {
       initialRouteName="Products">
       <Stack.Screen name="Products" component={Products} />
       <Stack.Screen name="PartnerProducts" component={PartnerProducts} />
+      <Stack.Screen
+        name="PartnerProductsDetail"
+        component={PartnerProductsDetail}
+      />
     </Stack.Navigator>
   );
 };

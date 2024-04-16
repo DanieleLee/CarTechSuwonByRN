@@ -1,6 +1,13 @@
 import colors from '@utils/colors';
 import {FC} from 'react';
-import {StyleSheet, Pressable, View, Text} from 'react-native';
+import {
+  StyleSheet,
+  Pressable,
+  View,
+  Text,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 import Loader from './Loader';
 
 interface Props {
@@ -8,13 +15,12 @@ interface Props {
   onPress?(): void;
   busy?: boolean;
   borderRadius?: number;
+  propStyles?: StyleProp<ViewStyle>;
 }
 
-const AppButton: FC<Props> = ({title, busy, onPress, borderRadius}) => {
+const AppButton: FC<Props> = ({title, busy, onPress, propStyles}) => {
   return (
-    <Pressable
-      onPress={onPress}
-      style={[styles.container, {borderRadius: borderRadius || 25}]}>
+    <Pressable onPress={onPress} style={[styles.container, propStyles]}>
       {!busy ? <Text style={styles.title}>{title}</Text> : <Loader />}
     </Pressable>
   );
@@ -27,7 +33,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    // borderRadius: 25,
+    borderRadius: 25,
   },
   title: {
     color: 'black',

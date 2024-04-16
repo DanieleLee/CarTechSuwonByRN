@@ -12,6 +12,7 @@ import {Text} from 'react-native-elements';
 
 interface Props {
   visible?: boolean;
+  trans: boolean;
   onRequestClose?(): void;
   children: ReactNode;
   modalPropStyle?: StyleProp<ViewStyle>;
@@ -20,13 +21,17 @@ interface Props {
 
 const BasicModalContainer: FC<Props> = ({
   visible,
+  trans,
   children,
   onRequestClose,
   modalPropStyle,
   modalContStyle,
 }) => {
   return (
-    <Modal onRequestClose={onRequestClose} visible={visible} transparent>
+    <Modal
+      onRequestClose={onRequestClose}
+      visible={visible}
+      transparent={trans}>
       <View style={[styles.modalContainer, modalContStyle]}>
         <Pressable onPress={onRequestClose} style={styles.backdrop} />
         <View style={[styles.modal, modalPropStyle]}>{children}</View>
@@ -47,7 +52,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     // alignItems: 'center',
     backgroundColor: 'transparent',
-    zIndex: 1,
+    // zIndex: 1,
   },
   modal: {
     width: '100%',

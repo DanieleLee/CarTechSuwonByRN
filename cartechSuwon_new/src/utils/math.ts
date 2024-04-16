@@ -18,3 +18,20 @@ export function mapRange(options: MapRangeOptions) {
 
   return result;
 }
+
+export function componentPosInfo<T>(
+  parent: React.RefObject<T>,
+  child: React.RefObject<T>,
+) {
+  if (child.current && parent.current) {
+    child.current?.measureLayout(
+      parent.current,
+      (left, top, width, height) => {
+        return {left: left, top: top, width: width, height: height};
+      },
+      () => {
+        console.error('measurement failed');
+      },
+    );
+  }
+}
