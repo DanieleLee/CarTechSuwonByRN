@@ -130,6 +130,7 @@ const TabNavigator = () => {
           tabBarLabel: 'MY',
         }}
       />
+
       {/* <Tab.Screen
         name="UploadScreen"
         component={Upload}

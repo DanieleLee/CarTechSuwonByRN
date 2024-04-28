@@ -3,7 +3,7 @@ import { Model, ObjectId, Schema, model, models } from "mongoose";
 export interface CartDocument<T = ObjectId> {
   _id: ObjectId;
   productId: string;
-  ownerId: T;
+  ownerId: ObjectId;
   date: string;
 }
 

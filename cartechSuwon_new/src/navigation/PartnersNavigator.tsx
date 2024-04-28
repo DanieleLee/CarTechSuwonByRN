@@ -6,6 +6,7 @@ import PartnerProducts from '@views/partners/PartnerProducts';
 import {PartnersNavigatorStackParamList} from 'src/@types/partners';
 import Products from '@views/Products';
 import PartnerProductsDetail from '@views/partners/PartnerProductsDetail';
+import Cart from '@views/cart/Cart';
 
 interface Props {}
 
@@ -22,6 +23,7 @@ const PartnersNavigator: FC<Props> = props => {
         name="PartnerProductsDetail"
         component={PartnerProductsDetail}
       />
+      <Stack.Screen name="Cart" component={Cart} />
     </Stack.Navigator>
   );
 };

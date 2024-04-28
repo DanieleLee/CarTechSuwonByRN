@@ -12,9 +12,12 @@ import colors from '@utils/colors';
 import {ReactElement, useEffect, useRef, useState} from 'react';
 import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useDispatch} from 'react-redux';
+import {CartData} from 'src/@types/cart';
 import {Measurements} from 'src/@types/common';
+import {TopNavigatorStackParamList} from 'src/@types/navigation';
 import {PartnersNavigatorStackParamList, mainMenu} from 'src/@types/partners';
-import {useFetchPartProductSub} from 'src/hooks/query';
+import {useFetchCartProducts, useFetchPartProductSub} from 'src/hooks/query';
 
 interface Props<T> {
   route: any;
@@ -30,14 +33,15 @@ const PartnerProducts = <T extends any>({route}: Props<T>) => {
 
   const [selMenu, setSelMenu] = useState<mainMenu>();
   const [selSubMenu, setSelSubMenu] = useState(false);
+  const [measure, setMeasure] = useState<Measurements | null>(null);
+  // const [cartProd, setCartProd] = useState<CartData[] | []>([]);
+  let [selMenuType, setSelMenuType] = useState<string>();
 
   /** measured subMenuDiv Pos **/
-  const [measure, setMeasure] = useState<Measurements | null>(null);
+
   const viewRef = useRef<View>(null);
   const textRef = useRef<Text>(null);
   const textRefM = useRef<Text>(null);
-
-  let [selMenuType, setSelMenuType] = useState<string>();
 
   const selectedMenu = partProducts?.find(c => c._id === id_product._id);
 
@@ -210,14 +214,22 @@ const PartnerProducts = <T extends any>({route}: Props<T>) => {
     setSelSubMenu(!selSubMenu);
   };
 
+  /**Navigation */
   const {navigate} =
     useNavigation<NavigationProp<PartnersNavigatorStackParamList>>();
 
   const pressSubMenuDetail = (menu: T[]): void => {
-    navigate('PartnerProductsDetail', {partProductSub: menu});
+    navigate('PartnerProductsDetail', {
+      partProductSub: menu,
+      cartProducts: data?.length || 0,
+    });
   };
 
   const {goBack} = useNavigation();
+
+  /**Hooks */
+  let {data} = useFetchCartProducts();
+  if (data === undefined) data = [];
 
   useEffect(() => {
     setSelMenu(selectedMenu);
@@ -255,9 +267,11 @@ const PartnerProducts = <T extends any>({route}: Props<T>) => {
             <TouchableOpacity style={{marginLeft: 10}}>
               <Icon type="antdesign" name="search1" color="white" />
             </TouchableOpacity>
-            <TouchableOpacity style={{marginLeft: 10}}>
+            <TouchableOpacity
+              onPress={() => navigate('Cart')}
+              style={{marginLeft: 10}}>
               <Badge
-                value="3"
+                value={data.length}
                 status="error"
                 containerStyle={{
                   position: 'absolute',
@@ -326,7 +340,7 @@ const PartnerProducts = <T extends any>({route}: Props<T>) => {
         pressEvent={pressSubMenuDetail}
       />
       {/**추후 컴포넌트로 빼기 **/}
-      <View style={styles.subMenuDiv}>
+      <View>
         <SubMenuDiv
           visible={selSubMenu}
           onSelect={selectEvt}

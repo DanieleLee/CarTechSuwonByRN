@@ -6,12 +6,12 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import {Icon} from '@rneui/themed';
+import {Badge, Icon} from '@rneui/themed';
 import AppButton from '@ui/AppButton';
 import BasicModalContainer from '@ui/BasicModalContainer';
 import colors from '@utils/colors';
 import {today} from '@utils/date';
-import {FC, useCallback, useRef, useState} from 'react';
+import {FC, useCallback, useEffect, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -20,9 +20,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {BadgeProps} from 'react-native-elements';
 import Swiper from 'react-native-web-swiper';
 import {useDispatch, useSelector} from 'react-redux';
 import {useRecoilState} from 'recoil';
+import {CartData} from 'src/@types/cart';
 import {TopNavigatorStackParamList} from 'src/@types/navigation';
 import {PartnersNavigatorStackParamList} from 'src/@types/partners';
 import catchAsyncError from 'src/api/catchError';
@@ -50,6 +52,7 @@ const PartnerProductsDetail: FC<Props> = props => {
   const rt = useRoute<routeProps>();
 
   const partProducts = rt.params.partProductSub;
+  let cartProductLeng: number = rt.params.cartProducts;
 
   /**<--Redux--> */
   const {profile} = useSelector(getAuthState);
@@ -76,26 +79,25 @@ const PartnerProductsDetail: FC<Props> = props => {
       setModalCartShow(false);
       if (e === 'YES') {
         // 장바구니페이지 이동
-        navigate('Top');
+        navigate('Cart');
       }
     } else {
       // prodMidContainer -> 장바구니담기 버튼클릭
-      let upCartStatus = await upProductCart({
+      const upCartStatus = await upProductCart({
         id: e._id,
         ownerId: profile.id,
         date: today,
       });
-      console.log(upCartStatus);
-      if (upCartStatus) {
-        console.log('updated!!!!!!!!!!');
+      if (upCartStatus.productId !== undefined) {
         setModalCartShow(true);
       }
     }
 
-    //top장바구니 수량 변경
+    //top장바구니 수량 변경 -->
+    cartProductLeng++;
   };
 
-  const upProductCart = async (cartData: addCart): Promise<object> => {
+  const upProductCart = async (cartData: addCart): Promise<CartData> => {
     const client = await getClient();
 
     try {
@@ -118,6 +120,9 @@ const PartnerProductsDetail: FC<Props> = props => {
     <>
       <View style={styles.container}>
         <TopNavBar
+          contStyle={{
+            paddingTop: 5,
+          }}
           leftCompot={
             <Pressable onPress={goBack}>
               <Icon type="antdesign" name="left" color="white" />
@@ -132,6 +137,16 @@ const PartnerProductsDetail: FC<Props> = props => {
                 <Icon type="antdesign" name="search1" color="white" />
               </TouchableOpacity>
               <TouchableOpacity style={{marginLeft: 10}}>
+                <Badge
+                  value={cartProductLeng}
+                  status="error"
+                  containerStyle={{
+                    position: 'absolute',
+                    top: -5,
+                    right: -10,
+                    zIndex: 10,
+                  }}
+                />
                 <Icon type="entypo" name="shopping-cart" color="white" />
               </TouchableOpacity>
             </View>

@@ -9,9 +9,9 @@ const Stack = createNativeStackNavigator<TopNavigatorStackParamList>();
 
 const TopNavigator: FC<props> = props => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Cart" component={Cart} />
-    </Stack.Navigator>
+    // <Stack.Navigator>
+    <Stack.Screen name="Cart" component={Cart} />
+    // {/* </Stack.Navigator> */}
   );
 };
 

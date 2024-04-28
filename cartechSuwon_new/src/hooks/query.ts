@@ -144,15 +144,33 @@ export const useFetchPartProductSub = (
 
 const fetchCartProducts = async (): Promise<CartData[]> => {
   const client = await getClient();
-  const {data} = await client('/cart/getCartItems');
+  const {data} = await client.get('/cart/getCartItems');
 
-  return data.cartProducts;
+  return data.cartProducts || [];
 };
 
 export const useFetchCartProducts = () => {
   const dispatch = useDispatch();
   return useQuery(['cartProducts'], {
     queryFn: fetchCartProducts,
+    onError(err) {
+      const errorMessage = catchAsyncError(err);
+      dispatch(updateNotification({message: errorMessage, type: 'error'}));
+    },
+  });
+};
+
+const fetchPartProdForCart = async (): Promise<subMenu[]> => {
+  const client = await getClient();
+  const {data} = await client.get('/cart/getPartProds');
+
+  return data.partProducts || [];
+};
+
+export const useFetchPartProdForCart = () => {
+  const dispatch = useDispatch();
+  return useQuery(['partProdForCart'], {
+    queryFn: fetchPartProdForCart,
     onError(err) {
       const errorMessage = catchAsyncError(err);
       dispatch(updateNotification({message: errorMessage, type: 'error'}));

@@ -2000,6 +2000,15 @@
   "resolved" "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.8.tgz"
   "version" "15.7.8"
 
+"@types/react-native-table-component@^1.2.8":
+  "integrity" "sha512-ZhWnoW3LpzXx+fCyosNBVasVCuaWNCMDMcP0mO9FSSK8eRE4ihLTqKiit6zjpph9ot4LQ/mD8hmbhV0YpRLvOQ=="
+  "resolved" "https://registry.npmjs.org/@types/react-native-table-component/-/react-native-table-component-1.2.8.tgz"
+  "version" "1.2.8"
+  dependencies:
+    "@types/react" "*"
+    "csstype" "^3.0.3"
+    "react-native" "*"
+
 "@types/react-native-vector-icons@^6.4.10", "@types/react-native-vector-icons@^6.4.15", "@types/react-native-vector-icons@^6.4.6":
   "integrity" "sha512-gmyVIANMFQXzpzejg4uMpYZ6KffrItkeb2F9LgcLnZz8RVrtbF8I3wbkRafHJoDJ2U0p8QiRui+BghD11ae8Gg=="
   "resolved" "https://registry.npmjs.org/@types/react-native-vector-icons/-/react-native-vector-icons-6.4.15.tgz"
@@ -2971,7 +2980,7 @@
     "shebang-command" "^2.0.0"
     "which" "^2.0.1"
 
-"csstype@^3.0.2":
+"csstype@^3.0.2", "csstype@^3.0.3":
   "integrity" "sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ=="
   "resolved" "https://registry.npmjs.org/csstype/-/csstype-3.1.2.tgz"
   "version" "3.1.2"
@@ -6093,6 +6102,11 @@
   "version" "3.5.2"
   dependencies:
     "use-latest-callback" "^0.1.5"
+
+"react-native-table-component@^1.2.2":
+  "integrity" "sha512-7bbsi5431iWcjj3toASh8lFHGi6AG/+MTd4M7GuksXKxx/CFs/Qwv1Ys7D2wgyuYKe3hxWNfSVrteFj0tOYXYw=="
+  "resolved" "https://registry.npmjs.org/react-native-table-component/-/react-native-table-component-1.2.2.tgz"
+  "version" "1.2.2"
 
 "react-native-vector-icons@^10.0.0", "react-native-vector-icons@>7.0.0":
   "integrity" "sha512-efMOVbZIebY8RszZPzPBoXi9pvD/NFYmjIDYxRoc9LYSzV8rMJtT8FfcO2hPu85Rn2x9xktha0+qn0B7EqMAcQ=="

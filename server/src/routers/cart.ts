@@ -1,4 +1,8 @@
-import { getCartProducts, updateCartProducts } from "#/controllers/cart";
+import {
+  getCartProducts,
+  getPartProdForCart,
+  updateCartProducts,
+} from "#/controllers/cart";
 import { getPartnersProducts } from "#/controllers/partnerProducts";
 import { isVerified, mustAuth } from "#/middleware/auth";
 import fileParser from "#/middleware/fileParser";
@@ -8,7 +12,7 @@ import { Router } from "express";
 
 const router = Router();
 
-/**요청자정보 인증 추가하기. */
+/**요청자 인증정보 -> Client Param에서 가져옴 */
 router.patch(
   "/update",
   updateCartProducts
@@ -19,6 +23,8 @@ router.patch(
   // createPartnerProducts
 );
 
-router.get("/getCartItems", getCartProducts);
+/**요청자 인증정보 -> 서버단에서 token확인후 가져옴 */
+router.get("/getCartItems", mustAuth, getCartProducts);
+router.get("/getPartProds", mustAuth, getPartProdForCart);
 
 export default router;

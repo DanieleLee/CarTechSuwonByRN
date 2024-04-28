@@ -3,6 +3,7 @@ import {
   getCartProductsRequest,
 } from "#/@types/cart";
 import Cart from "#/models/cart";
+import PartnerProducts from "#/models/partnerProducts";
 import { RequestHandler } from "express";
 
 export const updateCartProducts: RequestHandler = async (
@@ -37,15 +38,66 @@ export const getCartProducts: RequestHandler = async (
   req: getCartProductsRequest,
   res
 ) => {
-  const { ownerId } = req.body;
+  const ownerId = req.user.id;
+  console.log("cartttt");
 
   if (ownerId) {
-    const cartProducts = await Cart.find({ ownerId: ownerId });
+    const cartProducts = (await Cart.find({ ownerId: ownerId })).map((item) => {
+      return {
+        id: item._id,
+        date: item.date,
+        ownerId: item.ownerId,
+      };
+    });
 
     if (!cartProducts) return res.json({ cartProducts: [] });
-
+    console.log(cartProducts);
     res.json({
       cartProducts: cartProducts,
     });
+  }
+};
+
+export const getPartProdForCart: RequestHandler = async (
+  req: getCartProductsRequest,
+  res
+) => {
+  const owner = req.user.id;
+
+  if (owner) {
+    const partProducts = await Cart.aggregate([
+      { $match: { ownerId: owner } },
+      { $addFields: { productId: { $toObjectId: "$productId" } } },
+      {
+        $lookup: {
+          from: "partnerproducts",
+          localField: "productId",
+          foreignField: "_id",
+          as: "partProdInfo",
+        },
+      },
+      { $unwind: "$partProdInfo" },
+      {
+        $project: {
+          //   _id: 0,
+          //   id: "$all._id",
+          _id: "$partProdInfo._id",
+          date: "$all.date",
+          title: "$partProdInfo.title",
+          desc: "$partProdInfo.desc",
+          price: "$partProdInfo.price",
+          img: "$partProdInfo.img",
+          poster: "$partProdInfo.poster",
+          etc: "$partProdInfo.etc",
+          quantity: "$partProdInfo.quantity",
+        },
+      },
+      { $sort: { date: -1 } },
+    ]);
+
+    console.log("partProducts>>>>");
+    console.log(partProducts);
+
+    res.json({ partProducts });
   }
 };

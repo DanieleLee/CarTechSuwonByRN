@@ -1,3 +1,5 @@
+import {TopNavigatorStackParamList} from './navigation';
+
 export interface mainMenu {
   _id: string;
   title: string;
@@ -35,11 +37,11 @@ export interface subMenuMidType {
   cartBtn: boolean;
 }
 
-export type PartnersNavigatorStackParamList = {
+export type PartnersNavigatorStackParamList = TopNavigatorStackParamList & {
   Root: undefined;
   PartnerProducts: {id: string; partProduct: mainMenu[] | []};
   Products: undefined;
-  PartnerProductsDetail: {partProductSub: subMenu};
+  PartnerProductsDetail: {partProductSub: subMenu; cartProducts: number};
 };
 
 export type PartnerProduct = {type: string; partProduct: []};

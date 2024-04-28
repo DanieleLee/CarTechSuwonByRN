@@ -19,7 +19,6 @@ import Loader from '@ui/Loader';
 import {StyleSheet, View} from 'react-native';
 import colors from '@utils/colors';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import TopNavigator from './TopNavigator';
 
 interface Props {}
 
@@ -87,9 +86,6 @@ const AppNavigator: FC<Props> = props => {
           screenOptions={{headerShown: false}}
           initialRouteName="HOME">
           <Stack.Screen name="HOME" component={TabNavigator} />
-          <Stack.Group screenOptions={{headerShown: false}}>
-            <Stack.Screen name="Top" component={TopNavigator} />
-          </Stack.Group>
         </Stack.Navigator>
       ) : (
         <AuthNavigator />
